@@ -2,7 +2,7 @@
 
 A promotional landing page for the **Super Cimed** deodorant line, built with Next.js, React, Tailwind CSS, and Framer Motion. Features smooth scroll-triggered animations, responsive design, and a modern visual identity.
 
-> **Live demo:** _coming soon_
+> **Live demo:** [vc-product-landing-page.vercel.app](https://vc-product-landing-page.vercel.app/)
 
 ---
 
