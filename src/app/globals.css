@@ -2,25 +2,274 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
+  --energy: #ef4444;
+  --citrus: #22c55e;
+  --wood: #d97706;
+  --acqua: #3b82f6;
+  --dark: #111111;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-energy: var(--energy);
+  --color-citrus: var(--citrus);
+  --color-wood: var(--wood);
+  --color-acqua: var(--acqua);
+  --color-dark: var(--dark);
+  --font-sans: var(--font-montserrat);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Animated gradient ── */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 300% 300%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* ── Float ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ── Marquee ── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+/* ── Mist blob ── */
+.mist-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ── Spray dot particles ── */
+.spray-dots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.spray-dots::before,
+.spray-dots::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle 2px, currentColor 100%, transparent 100%),
+    radial-gradient(circle 1.5px, currentColor 100%, transparent 100%),
+    radial-gradient(circle 1px, currentColor 100%, transparent 100%);
+  background-size: 80px 90px, 120px 70px, 60px 110px;
+  background-position: 10px 20px, 50px 40px, 30px 10px;
+  opacity: 0.08;
+}
+
+.spray-dots::after {
+  background-size: 100px 120px, 70px 80px, 130px 60px;
+  background-position: 25px 35px, 65px 15px, 45px 55px;
+  opacity: 0.05;
+}
+
+/* ── Diagonal clips ── */
+.clip-diagonal-top {
+  clip-path: polygon(0 5%, 100% 0%, 100% 100%, 0 100%);
+}
+
+.clip-diagonal-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+}
+
+@media (max-width: 768px) {
+  .clip-diagonal-top {
+    clip-path: polygon(0 2%, 100% 0%, 100% 100%, 0 100%);
+  }
+  .clip-diagonal-bottom {
+    clip-path: polygon(0 0, 100% 0, 100% 98%, 0 100%);
+  }
+}
+
+/* ── 3D Perspective Container ── */
+.perspective-container {
+  perspective: 1000px;
+}
+
+/* ── 3D Card with tilt on hover ── */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+
+.card-3d:hover {
+  transform: rotateY(-5deg) rotateX(5deg) translateZ(20px);
+  box-shadow:
+    20px 20px 60px rgba(0, 0, 0, 0.08),
+    -5px -5px 20px rgba(255, 255, 255, 0.5);
+}
+
+/* ── 3D Product float with depth ── */
+.product-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-3d:hover {
+  transform: rotateY(8deg) rotateX(-3deg) translateZ(30px) scale(1.05);
+}
+
+/* ── Glow pulse ring ── */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.15); }
+}
+
+.glow-ring {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* ── Shimmer sweep ── */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.shimmer-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-effect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ── Rotating geometric shapes ── */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 25s linear infinite;
+}
+
+/* ── Orbit animation ── */
+@keyframes orbit {
+  0% { transform: rotate(0deg) translateX(var(--orbit-radius, 60px)) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(var(--orbit-radius, 60px)) rotate(-360deg); }
+}
+
+.animate-orbit {
+  animation: orbit var(--orbit-duration, 8s) linear infinite;
+}
+
+/* ── Scale pulse ── */
+@keyframes scale-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.animate-scale-pulse {
+  animation: scale-pulse 4s ease-in-out infinite;
+}
+
+/* ── Glass morphism card ── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ── Colored glow shadow ── */
+.glow-shadow {
+  transition: box-shadow 0.4s ease;
+}
+
+.glow-shadow:hover {
+  box-shadow: 0 0 30px var(--glow-color, rgba(0, 0, 0, 0.1));
+}
+
+/* ── 3D text depth ── */
+.text-3d {
+  text-shadow:
+    1px 1px 0 rgba(0, 0, 0, 0.1),
+    2px 2px 0 rgba(0, 0, 0, 0.08),
+    3px 3px 0 rgba(0, 0, 0, 0.06),
+    4px 4px 0 rgba(0, 0, 0, 0.04);
+}
+
+.text-3d-light {
+  text-shadow:
+    1px 1px 0 rgba(255, 255, 255, 0.15),
+    2px 2px 0 rgba(255, 255, 255, 0.1),
+    3px 3px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ── Entrance bounce ── */
+@keyframes bounce-in {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Morphing blob ── */
+@keyframes morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+  75% { border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%; }
+}
+
+.animate-morph {
+  animation: morph 8s ease-in-out infinite;
 }
